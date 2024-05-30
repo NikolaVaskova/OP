@@ -21,6 +21,7 @@ public class SelectOperation extends JFrame {
     JTextField nameUsDvText;
     JComboBox nameComboBox, operationComboBox;
     JButton nextButton;
+    float[] hsb = Color.RGBtoHSB(134, 218, 140, null);
     public SelectOperation() throws HeadlessException {
         panel = new JPanel();
         panel.setLayout(new GridBagLayout());
@@ -49,6 +50,7 @@ public class SelectOperation extends JFrame {
             g.gridwidth = 2;
             g.gridheight = 1;
             g.fill = GridBagConstraints.HORIZONTAL;
+        nameUsDvText.setBackground(Color.getHSBColor(hsb[0], hsb[1], hsb[2]));
         nameUsDvText.setColumns(10);
         panel.add(nameUsDvText, g);
 
@@ -69,7 +71,7 @@ public class SelectOperation extends JFrame {
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
                     operationComboBox.removeAllItems();
-                    if (nameComboBox.getSelectedItem().equals(Names.USER.toString())) {
+                    if (nameComboBox.getSelectedItem().equals(Names.PERSON.toString())) {
                         for (UsersOperations operation : UsersOperations.values()) {
                             operationComboBox.addItem(operation.toString());
                         }
@@ -97,11 +99,21 @@ public class SelectOperation extends JFrame {
             g.gridy = 2;
             g.gridwidth = 1;
             g.gridheight = 1;
+        nextButton.setBackground(Color.getHSBColor(hsb[0], hsb[1], hsb[2]));
         panel.add(nextButton, g);
 
         nextButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                name = nameUsDvText.getText();
+                if (name.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Please fill in the name");
+                    return;
+                }
+                if (operationComboBox.getSelectedItem() == null) {
+                    JOptionPane.showMessageDialog(null, "Please select an operation");
+                    return;
+                }
                 String selectedOperation = operationComboBox.getSelectedItem().toString();
                 lastUsedTable = selectedOperation;
                 name = nameUsDvText.getText();

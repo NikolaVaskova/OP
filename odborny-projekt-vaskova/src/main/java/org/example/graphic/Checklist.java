@@ -21,8 +21,8 @@ public class Checklist extends JFrame {
     private Map<ChecklistItem, JCheckBox> itemCheckBoxMap;
     JPanel panel;
     JCheckBox checkBox;
-    JButton sendButton, exportButton, editButton, cancelButton;
-
+    JButton messageButton, exportButton, editButton, cancelButton;
+    float[] hsb = Color.RGBtoHSB(134, 218, 140, null);
     public Checklist(java.util.List<ChecklistItem> items) throws HeadlessException {
         this.newChecklist = new NewChecklist();
         for (ChecklistItem item : items) {
@@ -50,11 +50,11 @@ public class Checklist extends JFrame {
         JPanel buttonPanel = new JPanel(new FlowLayout()); // vytvori specialni panel pro buttony
 
 
-        sendButton = new JButton("Create message");
-        sendButton.setBackground(Color.getHSBColor(192,237,251));
-        buttonPanel.add(sendButton);
+        messageButton = new JButton("Create message");
+        messageButton.setBackground(Color.getHSBColor(hsb[0], hsb[1], hsb[2]));
+        buttonPanel.add(messageButton);
 
-        sendButton.addActionListener(new ActionListener() {
+        messageButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String name = SelectOperation.getUsDvName();
@@ -85,6 +85,9 @@ public class Checklist extends JFrame {
                     PrintWriter writer = new PrintWriter(fileName, "UTF-8");
                     writer.println(message);
                     writer.close();
+
+                    JOptionPane.showMessageDialog(null, "Message was created successfully");
+
                 } catch (FileNotFoundException | UnsupportedEncodingException ex) {
                     ex.printStackTrace();
                 }
@@ -92,7 +95,7 @@ public class Checklist extends JFrame {
         });
 
         exportButton = new JButton("Export");
-        exportButton.setBackground(Color.getHSBColor(192,237,251));
+        exportButton.setBackground(Color.getHSBColor(hsb[0], hsb[1], hsb[2]));
         buttonPanel.add(exportButton);
 
         exportButton.addActionListener(new ActionListener() {
@@ -110,7 +113,7 @@ public class Checklist extends JFrame {
 
 
         editButton = new JButton("Edit");
-        editButton.setBackground(Color.getHSBColor(192,237,251));
+        editButton.setBackground(Color.getHSBColor(hsb[0], hsb[1], hsb[2]));
         buttonPanel.add(editButton);
 
         editButton.addActionListener(new ActionListener() {
@@ -123,20 +126,23 @@ public class Checklist extends JFrame {
 
 
         cancelButton = new JButton("Cancel");
-        cancelButton.setBackground(Color.getHSBColor(192,237,251));
+        cancelButton.setBackground(Color.getHSBColor(hsb[0], hsb[1], hsb[2]));
         buttonPanel.add(cancelButton);
 
         cancelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                setVisible(false);
+                int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to close the window?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if (response == JOptionPane.YES_OPTION) {
+                    setVisible(false);
+                }
             }
         });
 
 
         JScrollPane scrollPane = new JScrollPane(panel);
 
-        setLayout(new BorderLayout()); // nastaví layout na BorderLayout
+        setLayout(new BorderLayout()); // nastaví layout na flowlayout
         add(scrollPane, BorderLayout.CENTER);
         add(buttonPanel, BorderLayout.SOUTH);
 

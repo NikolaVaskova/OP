@@ -14,7 +14,7 @@ public class ItemsID extends JFrame {
     JPanel panel;
     JTable table;
     JButton cancelButton;
-
+    float[] hsb = Color.RGBtoHSB(134, 218, 140, null);
     public ItemsID(java.util.List<ChecklistItem> items) throws HeadlessException {
         this.newChecklist = new NewChecklist();
         for (ChecklistItem item : items) {
@@ -39,7 +39,7 @@ public class ItemsID extends JFrame {
 
 
         cancelButton = new JButton("Cancel");
-        cancelButton.setBackground(Color.getHSBColor(192,237,251));
+        cancelButton.setBackground(Color.getHSBColor(hsb[0], hsb[1], hsb[2]));
         panel.add(cancelButton, BorderLayout.SOUTH);
 
         cancelButton.addActionListener(new ActionListener() {

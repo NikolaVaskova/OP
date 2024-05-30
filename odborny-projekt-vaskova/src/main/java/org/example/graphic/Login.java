@@ -13,6 +13,7 @@ public class Login extends JFrame {
     JTextField nameText;
     JPasswordField passwordText;
     JButton loginButton, showPasswordButton, registerButton;
+    float[] hsb = Color.RGBtoHSB(134, 218, 140, null);
     public Login() throws HeadlessException { //Konstruktor
         panel = new JPanel();
         panel.setLayout(new GridBagLayout());
@@ -42,7 +43,7 @@ public class Login extends JFrame {
             g.gridheight = 1;
             g.fill = GridBagConstraints.HORIZONTAL;
         nameText.setColumns(20);
-        nameText.setBackground(Color.getHSBColor(192,237,251));
+        nameText.setBackground(Color.getHSBColor(hsb[0], hsb[1], hsb[2]));
         panel.add(nameText, g);
 
 
@@ -53,7 +54,7 @@ public class Login extends JFrame {
             g.gridheight = 1;
             g.fill = GridBagConstraints.HORIZONTAL;
         nameText.setColumns(20);
-        passwordText.setBackground(Color.getHSBColor(192,237,251));
+        passwordText.setBackground(Color.getHSBColor(hsb[0], hsb[1], hsb[2]));
         panel.add(passwordText, g);
 
 
@@ -62,31 +63,38 @@ public class Login extends JFrame {
             g.gridy = 2;
             g.gridwidth = 2;
             g.gridheight = 1;
-        loginButton.setBackground(Color.getHSBColor(192,237,251));
+        loginButton.setBackground(Color.getHSBColor(hsb[0], hsb[1], hsb[2]));
         panel.add(loginButton, g);
 
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                setVisible(false);
-                // Tady bude muset být nějaká funkce funkce
-                //dbConnect.findPasswordFromUsername(loginText.getUsername);
-                //validatePassword(loginText.getPassword, dbConnect.findPasswordFromUsername(loginText.getUsername));
+                DBConnect dbConnect = new DBConnect();
+                String enteredUsername = nameText.getText();
+                String enteredPassword = new String(passwordText.getPassword());
 
-                SelectOperation newWindow = new SelectOperation();
-                newWindow.setVisible(true);
+                String storedPassword = dbConnect.findPasswordFromUsername(enteredUsername);
 
-                username = nameText.getText();
+                System.out.println("Entered password: " + enteredPassword);
+                System.out.println("Fetched password: " + storedPassword);
+
+                if (enteredPassword.equals(storedPassword)) {
+                    setVisible(false);
+                    SelectOperation newWindow = new SelectOperation();
+                    newWindow.setVisible(true);
+                    username = enteredUsername;
+                } else {
+                    JOptionPane.showMessageDialog(null, "Invalid username or password");
                 }
-            });
-
+            }
+        });
 
         showPasswordButton = new JButton("Show");
             g.gridx = 3;
             g.gridy = 1;
             g.gridwidth = 1;
             g.gridheight = 1;
-        showPasswordButton.setBackground(Color.getHSBColor(192,237,251));
+        showPasswordButton.setBackground(Color.getHSBColor(hsb[0], hsb[1], hsb[2]));
         panel.add(showPasswordButton, g);
 
         //Ukazuje a skryva heslo
@@ -109,6 +117,7 @@ public class Login extends JFrame {
             g.gridy = 2;
             g.gridwidth = 1;
             g.gridheight = 1;
+        registerButton.setBackground(Color.getHSBColor(hsb[0], hsb[1], hsb[2]));
         panel.add(registerButton, g);
 
         registerButton.addActionListener(new ActionListener() {

@@ -4,13 +4,8 @@ import org.example.logic.ChecklistItem;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.nio.charset.StandardCharsets;
-import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Base64;
+
 public class DBConnect {
     private static String url;
     private Connection connection;
@@ -117,7 +112,21 @@ public class DBConnect {
         }
     }
 
-    public String findPasswordFromUsername(String name) {
-        return name;
+    public String findPasswordFromUsername(String username) {
+        String password = null;
+        String sql = "SELECT password FROM Users WHERE name = ?";
+
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setString(1, username);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                password = rs.getString("password");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return password;
     }
 }

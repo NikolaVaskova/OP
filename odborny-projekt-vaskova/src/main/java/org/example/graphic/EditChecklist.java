@@ -14,6 +14,7 @@ public class EditChecklist extends JFrame {
     JLabel addLabel, removeLabel;
     JTextField addText, removeText;
     JButton saveButton, cancelButton, infoAddButton, infoRemoveButton, idButton;
+    float[] hsb = Color.RGBtoHSB(134, 218, 140, null);
     public EditChecklist() throws HeadlessException {
         panel = new JPanel();
         panel.setLayout(new GridBagLayout());
@@ -42,6 +43,7 @@ public class EditChecklist extends JFrame {
             g.gridwidth = 2;
             g.gridheight = 1;
             g.fill = GridBagConstraints.HORIZONTAL;
+        addText.setBackground(Color.getHSBColor(hsb[0], hsb[1], hsb[2]));
         addText.setColumns(20);
         panel.add(addText, g);
 
@@ -52,6 +54,7 @@ public class EditChecklist extends JFrame {
             g.gridwidth = 2;
             g.gridheight = 1;
             g.fill = GridBagConstraints.HORIZONTAL;
+        removeText.setBackground(Color.getHSBColor(hsb[0], hsb[1], hsb[2]));
         removeText.setColumns(20);
         panel.add(removeText, g);
 
@@ -61,6 +64,7 @@ public class EditChecklist extends JFrame {
             g.gridy = 0;
             g.gridwidth = 1;
             g.gridheight = 1;
+        infoAddButton.setBackground(Color.getHSBColor(hsb[0], hsb[1], hsb[2]));
         panel.add(infoAddButton, g);
 
         infoAddButton.addActionListener(new ActionListener() {
@@ -76,6 +80,7 @@ public class EditChecklist extends JFrame {
             g.gridy = 1;
             g.gridwidth = 1;
             g.gridheight = 1;
+        infoRemoveButton.setBackground(Color.getHSBColor(hsb[0], hsb[1], hsb[2]));
         panel.add(infoRemoveButton, g);
 
         infoRemoveButton.addActionListener(new ActionListener() {
@@ -91,6 +96,7 @@ public class EditChecklist extends JFrame {
             g.gridy = 2;
             g.gridwidth = 1;
             g.gridheight = 1;
+        idButton.setBackground(Color.getHSBColor(hsb[0], hsb[1], hsb[2]));
         panel.add(idButton, g);
 
         idButton.addActionListener(new ActionListener() {
@@ -108,6 +114,7 @@ public class EditChecklist extends JFrame {
             g.gridy = 2;
             g.gridwidth = 1;
             g.gridheight = 1;
+        saveButton.setBackground(Color.getHSBColor(hsb[0], hsb[1], hsb[2]));
         panel.add(saveButton, g);
 
         saveButton.addActionListener(new ActionListener() {
@@ -133,22 +140,30 @@ public class EditChecklist extends JFrame {
                         ex.printStackTrace();
                     }
                 }
-                setVisible(false);
+                int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to close the window?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if (response == JOptionPane.YES_OPTION) {
+                    setVisible(false);
+                }
             }
         });
 
 
-        cancelButton = new JButton("Cancel");
+
+            cancelButton = new JButton("Cancel");
             g.gridx = 2;
             g.gridy = 2;
             g.gridwidth = 1;
             g.gridheight = 1;
+        cancelButton.setBackground(Color.getHSBColor(hsb[0], hsb[1], hsb[2]));
         panel.add(cancelButton, g);
 
         cancelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                setVisible(false);
+                int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to close the window?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if (response == JOptionPane.YES_OPTION) {
+                    setVisible(false);
+                }
             }
         });
         add(panel);

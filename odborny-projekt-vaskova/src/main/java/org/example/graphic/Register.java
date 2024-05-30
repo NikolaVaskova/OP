@@ -1,6 +1,5 @@
 package org.example.graphic;
 
-
 import org.example.DBConnect;
 
 import javax.swing.*;
@@ -15,7 +14,7 @@ public class Register extends JFrame {
     JTextField nameText, emailText;
     JPasswordField passwordText;
     JButton registerButton, cancelButton, showPasswordButton;
-
+    float[] hsb = Color.RGBtoHSB(134, 218, 140, null);
     public Register() throws HeadlessException {
         panel = new JPanel();
         panel.setLayout(new GridBagLayout());
@@ -53,7 +52,7 @@ public class Register extends JFrame {
             g.gridheight = 1;
             g.fill = GridBagConstraints.HORIZONTAL;
         nameText.setColumns(20);
-        nameText.setBackground(Color.getHSBColor(192,237,251));
+        nameText.setBackground(Color.getHSBColor(hsb[0], hsb[1], hsb[2]));
         panel.add(nameText, g);
 
 
@@ -64,7 +63,7 @@ public class Register extends JFrame {
             g.gridheight = 1;
             g.fill = GridBagConstraints.HORIZONTAL;
         emailText.setColumns(20);
-        emailText.setBackground(Color.getHSBColor(192,237,251));
+        emailText.setBackground(Color.getHSBColor(hsb[0], hsb[1], hsb[2]));
         panel.add(emailText, g);
 
 
@@ -75,7 +74,7 @@ public class Register extends JFrame {
             g.gridheight = 1;
             g.fill = GridBagConstraints.HORIZONTAL;
         passwordText.setColumns(20);
-        passwordText.setBackground(Color.getHSBColor(192,237,251));
+        passwordText.setBackground(Color.getHSBColor(hsb[0], hsb[1], hsb[2]));
         panel.add(passwordText, g);
 
 
@@ -84,7 +83,7 @@ public class Register extends JFrame {
             g.gridy = 3;
             g.gridwidth = 1;
             g.gridheight = 1;
-        registerButton.setBackground(Color.getHSBColor(192,237,251));
+        registerButton.setBackground(Color.getHSBColor(hsb[0], hsb[1], hsb[2]));
         panel.add(registerButton, g);
 
         registerButton.addActionListener(new ActionListener() {
@@ -106,6 +105,7 @@ public class Register extends JFrame {
                 } else {
                     JOptionPane.showMessageDialog(null, "Invalid email");
                 }
+                JOptionPane.showMessageDialog(null, "Registration was successful");
             }
         });
 
@@ -114,13 +114,16 @@ public class Register extends JFrame {
             g.gridy = 3;
             g.gridwidth = 1;
             g.gridheight = 1;
-        cancelButton.setBackground(Color.getHSBColor(192,237,251));
+        cancelButton.setBackground(Color.getHSBColor(hsb[0], hsb[1], hsb[2]));
         panel.add(cancelButton, g);
 
         cancelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                setVisible(false);
+                int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to close the window?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if (response == JOptionPane.YES_OPTION) {
+                    setVisible(false);
+                }
             }
         });
 
@@ -130,7 +133,7 @@ public class Register extends JFrame {
             g.gridy = 2;
             g.gridwidth = 1;
             g.gridheight = 1;
-        showPasswordButton.setBackground(Color.getHSBColor(192,237,251));
+        showPasswordButton.setBackground(Color.getHSBColor(hsb[0], hsb[1], hsb[2]));
         panel.add(showPasswordButton, g);
 
         showPasswordButton.addActionListener(new ActionListener() {
